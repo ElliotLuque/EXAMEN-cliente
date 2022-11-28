@@ -1,0 +1,81 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center mb-5">Edición de Post</h1>
+  
+        <form novalidate [formGroup]="oForm" (ngSubmit)="onSubmit()">
+  
+          <div class="mb-3 row">
+            <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="inputID" formControlName="id" readonly>
+            </div>
+          </div>
+  
+          <div class="mb-3 row">
+            <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-4 has-validation">
+              <input type="text" class="form-control"
+                id="inputTitle" formControlName="title">
+            </div>
+          </div>      
+  
+          <div class="mb-3 row">
+            <label for="inputBody" class="col-sm-2 col-form-label">Body</label>
+            <div class="col-sm-4 has-validation">
+              <input type="text" class="form-control"
+                id="inputBody" formControlName="body">
+            </div>
+          </div> 
+  
+          <div class="mb-3 row">
+            <label for="inputLabels" class="col-sm-2 col-form-label">Labels</label>
+            <div class="col-sm-4 has-validation">
+              <input type="text" class="form-control"
+                id="inputLabels" formControlName="labels">
+            </div>
+          </div> 
+  
+          <div class="mb-3 row">
+            <label for="inputVisible" class="col-sm-2 col-form-label">Visible</label>
+            <div class="col-sm-4 has-validation">
+              <input type="checkbox" class="form-check-input"
+                id="inputVisible" formControlName="visible">              
+            </div>
+          </div>
+  
+          <div class="mb-3 row">
+            <label for="inputDatetime" class="col-sm-2 col-form-label">Datetime</label>
+            <div class="col-sm-4 has-validation">
+              <input type="date" class="form-control"
+                id="inputDatetime" formControlName="datetime">
+            </div>
+          </div> 
+  
+          <button type="submit" class="btn btn-primary"
+            [disabled]="!oForm.dirty || (oForm.invalid && oForm.dirty)">Guardar</button>
+  
+        </form>
+  
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                {{modalContent}}
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,111 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center mb-5">Lista de Users</h1>      
+        <div class="col-md text-end d-flex justify-content-center align-items-center mb-3 ">
+          <a [routerLink]="['/admin/user/create']" class="btn btn-primary mx-3">Alta de user</a>
+          <app-search-unrouted [placeHolder]="'Buscar post'" (onSearch)="setFilter( $event )"></app-search-unrouted>
+          <app-dropdown-register-page class="mx-2" [PageSize]="responseFromServer.numberOfElements"
+            (eeRpp)="this.setRpp($event)">
+          </app-dropdown-register-page>
+        </div>
+        <div class="col-md">
+          <app-pagination-unrouted [nPage]="responseFromServer.number + 1" [nTotalPages]="responseFromServer.totalPages"
+            (eePage)="setPage($event)"></app-pagination-unrouted>
+        </div>
+        <div class="col-md text-start">
+          <h5 class="text-muted" *ngIf="strTermFilter!=''">Filtrando por {{strTermFilter}} (borrar para resetear)</h5>
+        </div>
+        <div class="col-md text-end">
+          <h5 class="text-muted">Total de registros en la consulta {{responseFromServer.totalElements}}</h5>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th (click)="setOrder('id')">ID
+                
+              </th>
+              <th (click)="setOrder('name')">Name
+              </th>
+              <th (click)="setOrder('surname')">Surname</th>
+              <th (click)="setOrder('lastname')">Lastname</th>
+              <th (click)="setOrder('email')">Email</th>
+              <th (click)="setOrder('username')">Username</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of responseFromServer.content">
+              <td>{{user.id}}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.surname}}</td>
+              <td>{{user.lastname}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.username}}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="Herramientas">
+                  <button (click)="showModal(user.id)" class="btn btn-sm btn-success">
+                    Emergente
+                  </button>
+                  <button class="btn btn-sm btn-primary" [routerLink]="['/admin/user/view',user.id]">
+                    Ver
+                  </button>
+                  <button class="btn btn-sm btn-warning" [routerLink]="['/admin/user/edit',user.id]">
+                    Editar
+                  </button>
+                  <button class="btn btn-sm btn-danger" [routerLink]="['/admin/user/delete',user.id]">
+                    Borrar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" [id]="mimodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">              
+              <h5 class="text-center mb-5">Vista de un User</h5>
+              <table class="table table-bordered table-striped">
+                  <tbody>
+                      <tr>
+                          <th>Id</th>
+                          <td>{{oUser.id}}</td>
+                      </tr>
+                      <tr>
+                          <td>Name</td>
+                          <td>{{oUser.name}}</td>
+                      </tr>
+                      <tr>
+                          <td>Surname</td>
+                          <td>{{oUser.surname}}</td>
+                      </tr>
+                      <tr>
+                          <td>Lastname</td>
+                          <td>{{oUser.lastname}}</td>
+                      </tr>
+                      <tr>
+                          <td>Email</td>
+                          <td>{{oUser.email}}</td>
+                      </tr>
+                      <tr>
+                          <td>Username</td>
+                          <td>{{oUser.username}}</td>
+                      </tr>
+                  </tbody>
+              </table>  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+  </div>
